@@ -162,6 +162,8 @@ def test_analyze_diff_calls_claude_api(monkeypatch):
     fake_client = MagicMock()
     fake_client.messages.create.return_value = fake_response
 
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-test-key")
+
     with patch("app.clients.claude_client.anthropic.Anthropic", return_value=fake_client):
         from app.clients.claude_client import analyze_diff
         result = analyze_diff("+ some code change")
